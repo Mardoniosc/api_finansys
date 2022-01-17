@@ -1,3 +1,5 @@
+[![Build Status](https://app.travis-ci.com/Mardoniosc/api_finansys.svg?branch=main)](https://app.travis-ci.com/Mardoniosc/api_finansys)
+
 ### api_finansys
 
 API do sistema de projeto finansys com Java e Spring Boot.
