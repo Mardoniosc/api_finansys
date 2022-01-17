@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.servicosmsc.finansys.domain.Categoria;
+import com.servicosmsc.finansys.dto.CategoriaDTO;
 import com.servicosmsc.finansys.repositories.CategoriaRepository;
 import com.servicosmsc.finansys.services.exceptions.DataIntegrityException;
 import com.servicosmsc.finansys.services.exceptions.ObjectNotFoundException;
@@ -54,6 +55,10 @@ public class CategoriaService {
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
+	}
+	
+	public Categoria fromDTO(CategoriaDTO objDTO) {
+		return new Categoria(objDTO.getId(), objDTO.getNome(), objDTO.getDescricao());
 	}
 
 }
