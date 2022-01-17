@@ -7,29 +7,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import com.servicosmsc.finansys.domain.Categoria;
-import com.servicosmsc.finansys.repositories.CategoriaRepository;
+import com.servicosmsc.finansys.domain.Lancamento;
+import com.servicosmsc.finansys.repositories.LancamentoRepository;
 import com.servicosmsc.finansys.services.exceptions.DataIntegrityException;
 import com.servicosmsc.finansys.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class CategoriaService {
+public class LancamentoService {
 
 	@Autowired
-	private CategoriaRepository repo;
+	private LancamentoRepository repo;
 
-	public Categoria find(Integer id) {
-		Optional<Categoria> obj = repo.findById(id);
+	public Lancamento find(Integer id) {
+		Optional<Lancamento> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Lancamento.class.getName()));
 	}
 	
-	public Categoria insert(Categoria obj) {
+	public Lancamento insert(Lancamento obj) {
 		obj.setId(null);
 		return repo.save(obj);
 	}
 	
-	public Categoria update(Categoria obj) {
+	public Lancamento update(Lancamento obj) {
 		find(obj.getId());
 
 		return repo.save(obj);
@@ -40,11 +40,11 @@ public class CategoriaService {
 		try {
 			repo.deleteById(id);			
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possível excluir uma categoria que possui lancamentos");
+			throw new DataIntegrityException("Não é possível excluir o Lancamento.");
 		}
 	}
 	
-	public List<Categoria> findAll() {
+	public List<Lancamento> findAll() {
 		return repo.findAll();
 	}
 
