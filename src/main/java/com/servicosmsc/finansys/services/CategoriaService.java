@@ -3,10 +3,12 @@ package com.servicosmsc.finansys.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.servicosmsc.finansys.domain.Categoria;
 import com.servicosmsc.finansys.repositories.CategoriaRepository;
+import com.servicosmsc.finansys.services.exceptions.DataIntegrityException;
 import com.servicosmsc.finansys.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -24,6 +26,21 @@ public class CategoriaService {
 	public Categoria insert(Categoria obj) {
 		obj.setId(null);
 		return repo.save(obj);
+	}
+	
+	public Categoria update(Categoria obj) {
+		find(obj.getId());
+
+		return repo.save(obj);
+	}
+	
+	public void delete(Integer id) {
+		find(id);
+		try {
+			repo.deleteById(id);			
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
+		}
 	}
 
 }
