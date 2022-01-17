@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.servicosmsc.finansys.domain.Lancamento;
+import com.servicosmsc.finansys.dto.LancamentoNewDTO;
 import com.servicosmsc.finansys.services.LancamentoService;
 
 @RestController
@@ -31,8 +32,9 @@ public class LancamentoResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@RequestBody Lancamento obj) {
-		obj = service.insert(obj);
+	public ResponseEntity<Void> insert(@RequestBody LancamentoNewDTO objDTO) {
+		Lancamento obj = new Lancamento();
+		obj = service.insert(objDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 
@@ -40,9 +42,9 @@ public class LancamentoResource {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@RequestBody Lancamento obj, @PathVariable Integer id){
-		obj.setId(id);
-		obj = service.update(obj);
+	public ResponseEntity<Void> update(@RequestBody LancamentoNewDTO objDTO, @PathVariable Integer id){
+		objDTO.setId(id);
+		service.update(objDTO);
 		return ResponseEntity.noContent().build();
 
 	}
