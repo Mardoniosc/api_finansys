@@ -23,10 +23,11 @@ public class FinansysApiApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Categoria cat1 = new Categoria(null, "Informática");
-		Categoria cat2 = new Categoria(null, "Escritório");
+		Categoria cat1 = new Categoria(null, "Moradia", "Pagamentos de contas da Casa");
+		Categoria cat2 = new Categoria(null, "Saúde", "Plano de Saúde e Remédios");
+		Categoria cat3 = new Categoria(null, "Lazer", "Cinema, parques, praia, etc");
 		
-		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
+		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 		
 	}
 
